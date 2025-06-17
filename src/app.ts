@@ -1,28 +1,34 @@
 import express, { Application, Request, Response } from 'express';
 import { model, Schema } from 'mongoose';
+import { noteRoutes } from './app/controllers/notes.controller';
+import { usersRoutes } from './app/controllers/users.controller';
 
 const app: Application = express()
 
-const noteSchema = new Schema({
-    title: String,
-    content: String
-})
+app.use(express.json())
+app.use('/notes', noteRoutes)
+app.use('/notes', usersRoutes)
 
-const NoteModel = model('Note', noteSchema)
+// const noteSchema = new Schema({
+//     title: String,
+//     content: String
+// })
 
-app.post('/create-note', async (req: Request, res: Response) => {
-    const myNote = new NoteModel({
-        title: 'Bulbul Note',
-        content: 'none'
-    })
-    await myNote.save()
-    res.status(201).json({
-        success: true,
-        message: 'Note create successfully!',
-        note: myNote
-    })
+// const NoteModel = model('Note', noteSchema)
 
-})
+// app.post('/create-note', async (req: Request, res: Response) => {
+//     const myNote = new NoteModel({
+//         title: 'Bulbul Note',
+//         content: 'none'
+//     })
+//     await myNote.save()
+//     res.status(201).json({
+//         success: true,
+//         message: 'Note create successfully!',
+//         note: myNote
+//     })
+
+// })
 
 
 
